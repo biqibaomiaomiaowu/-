@@ -18,5 +18,7 @@ private:
 	bool left=false;
 	bool right=false;
 	int speed = 5;
+	int gamecont = 0;
+	int playframerate = 2;//动画播放帧率=游戏帧率(gameframerate)/playframerate
 };
 

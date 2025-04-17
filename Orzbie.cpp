@@ -1,80 +1,37 @@
-#include "player.h"
+#include "Orzbie.h"
 
-void Player::init()
+
+
+Orzbie::Orzbie()
 {
-    for (int i = 0; i < 31; i++) {
-        char name[50] = { 0 };
-        sprintf_s(name, "res/%d.png", i+1);
-        loadimage(&player[i], name, 150, 150);
+    char name[50] = { 0 };
+    int nub = 1;
+
+    for (int i = 0; i < 10; i++) {
+        sprintf_s(name, "res/ordinary zombie (%d).png", nub);
+        loadimage(&zombies[i], name, 200, 230);
+        nub++;
     }
+    zombieposition();
 }
 
-void Player::draw()
+void Orzbie::move()
 {
-        putimagePNG(x, y, &player[imagenub]);
-}
-
-void Player::move()
-{
-   
-    ExMessage msg;
-    while (peekmessage(&msg,EX_KEY))
-    {
-        if (msg.message == WM_KEYDOWN) {
-            switch (msg.vkcode) {
-            case VK_UP:
-                up = true;
-                break;
-            case VK_DOWN:
-                down = true;
-                break;
-            case VK_LEFT:
-                left = true;
-                break;
-            case VK_RIGHT:
-                right = true;
-                break;
-            }
-        }
-        if (msg.message == WM_KEYUP) {
-            switch (msg.vkcode) {
-            case VK_UP:
-                up = false;
-                break;
-            case VK_DOWN:
-                down = false;
-                break;
-            case VK_LEFT:
-                left = false;
-                break;
-            case VK_RIGHT:
-                right = false;
-                break;
-            }
-        }
-    }
-    if (up&&y>0) {
-        y -= speed;
-    }
-    if (down&&y<810 ) {
-        y += speed;
-    }
-    if (left&&x>0) {
-        x -= speed;
-    }
-    if (right&&x<1130) {
-        x += speed;
-    }
+    x -= speed;
     draw();
     gamecont++;
     if (gamecont == playframerate) {
         gamecont = 0;
         imagenub++;
     }
-    
-    imagenub %= 30;
+    imagenub %= 10;
 }
-void Player::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为Y坐标
+
+void Orzbie::draw()
+{
+    putimagePNG(x, y, &zombies[imagenub]);
+}
+void Orzbie::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为Y坐标
 {
     // 变量初始化
     DWORD* dst = GetImageBuffer();    // GetImageBuffer()函数，用于获取绘图设备的显存指针，EASYX自带
@@ -108,4 +65,23 @@ void Player::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为
             }
         }
     }
+}
+
+void Orzbie::zombieposition()
+{
+
+
+  
+        // 创建随机设备（硬件熵源）
+        std::random_device rd;
+
+        // 使用 Mersenne Twister 算法（高性能随机数生成器）
+        std::mt19937 gen(rd());
+
+        // 定义均匀整数分布范围 [0, 730]（闭区间）
+        std::uniform_int_distribution<int> dist(0, 730);
+
+        // 生成并输出随机数
+        int random_number = dist(gen);
+        y = random_number;
 }
