@@ -3,13 +3,15 @@
 #include"player.h"
 #include"map.h"
 #include"Orzbie.h"
+#include"Bullet.h"
 class Control
 {public:
 	void init();
-	Control(Map * map, Player* player);
+	Control(Map * map, Player* player );
 private:
 	Map * map;
     Player * player;
     Enemy * enemy;
+
 };
 

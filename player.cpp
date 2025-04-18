@@ -5,7 +5,7 @@ void Player::init()
     for (int i = 0; i < 31; i++) {
         char name[50] = { 0 };
         sprintf_s(name, "res/%d.png", i+1);
-        loadimage(&player[i], name, 150, 150);
+        loadimage(&player[i], name);
     }
 }
 
@@ -108,4 +108,14 @@ void Player::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为
             }
         }
     }
+}
+
+int Player::getx()
+{
+    return x;
+}
+
+int Player::gety()
+{
+    return y;
 }

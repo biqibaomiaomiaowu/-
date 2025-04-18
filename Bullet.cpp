@@ -1,37 +1,20 @@
-#include "Orzbie.h"
+#include "Bullet.h"
 
-
-
-Orzbie::Orzbie()
+Bullet::Bullet(Player * player)
 {
+	this->player = player;
     char name[50] = { 0 };
-    int nub = 1;
-
-    for (int i = 0; i < 10; i++) {
-        sprintf_s(name, "res/ordinary zombie (%d).png", nub);
-        loadimage(&zombies[i], name, 200, 230);
-        nub++;
-    }
-    zombieposition();
+        for (int i = 0; i < 2; i++) {
+            sprintf_s(name, "res/fierbullet(%d).png", i+1);
+    
+           loadimage(&bullet[i], name);
+        }
+        x = player->getx() + 194;
+        y = player->gety() + 128;
 }
 
-void Orzbie::move()
-{
-    x -= speed;
-    draw();
-    gamecont++;
-    if (gamecont == playframerate) {
-        gamecont = 0;
-        imagenub++;
-    }
-    imagenub %= 10;
-}
 
-void Orzbie::draw()
-{
-    putimagePNG(x, y, &zombies[imagenub]);
-}
-void Orzbie::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为Y坐标
+void Bullet::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为Y坐标
 {
     // 变量初始化
     DWORD* dst = GetImageBuffer();    // GetImageBuffer()函数，用于获取绘图设备的显存指针，EASYX自带
@@ -66,23 +49,21 @@ void Orzbie::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为
         }
     }
 }
+void Bullet::draw()
+{
+    putimagePNG(x, y, &bullet[imagenub]);
+}
 
-void Orzbie::zombieposition()
+void Bullet::move()
 {
 
+    draw();
+    gamecont++;
+    if (gamecont == playframerate) {
+        imagenub++;
+        gamecont = 0;
+    }
+    imagenub %= 2;
+    x += speed;
 
-  
-        // 创建随机设备（硬件熵源）
-        std::random_device rd;
-
-        // 使用 Mersenne Twister 算法（高性能随机数生成器）
-        std::mt19937 gen(rd());
-
-        // 定义均匀整数分布范围 [0, 730]（闭区间）
-        std::uniform_int_distribution<int> dist(0, 730);
-
-        // 生成并输出随机数
-        int random_number = dist(gen);
-        y = random_number;//随机出生位置
-        imagenub = random_number%10;//让每个orzbie的动作不一样
 }

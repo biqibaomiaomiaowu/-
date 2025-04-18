@@ -8,6 +8,8 @@ public:
 	void draw();
 	void move();
 	void putimagePNG(int x, int y, IMAGE* picture);
+	int getx();
+	int gety();
 private:
 	IMAGE player[31];
 	int x=450;
