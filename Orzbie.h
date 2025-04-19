@@ -11,6 +11,8 @@ public:
 	void draw(); 
 	void putimagePNG(int x, int y, IMAGE* picture);
 	void zombieposition();
+	int getx();
+	int gety();
 private:
 	int x = 1110;
 	int y=0;

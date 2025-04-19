@@ -49,6 +49,15 @@ void Bullet::putimagePNG(int x, int y, IMAGE* picture) //x为载入图片的X坐标，y为
         }
     }
 }
+int Bullet::getx()
+{
+    return x;
+}
+int Bullet::gety()
+{
+    return y;
+}
+
 void Bullet::draw()
 {
     putimagePNG(x, y, &bullet[imagenub]);
@@ -65,5 +74,6 @@ void Bullet::move()
     }
     imagenub %= 2;
     x += speed;
-
+    
 }
+

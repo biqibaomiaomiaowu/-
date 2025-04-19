@@ -86,3 +86,13 @@ void Orzbie::zombieposition()
         y = random_number;//随机出生位置
         imagenub = random_number%10;//让每个orzbie的动作不一样
 }
+
+int Orzbie::getx()
+{
+    return x;
+}
+
+int Orzbie::gety()
+{
+    return y;
+}

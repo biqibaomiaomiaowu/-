@@ -52,6 +52,8 @@ int main() {
 		}
 		
 		EndBatchDraw();
+		control.checkout(orzbies_lists, fierbullet_lists);
+		control.contact(orzbies_lists,fierbullet_lists);
 		clock_t endtime = clock();//记录结束时间
 		if (endtime - starttime < 1000 / gameframerate) {
 	    //cout << "帧率为：" << gameframerate;
