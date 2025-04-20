@@ -14,6 +14,8 @@ class Control
 	Control(Map * map, Player* player);
 	void checkout(std::vector < Orzbie*>& orzbies_lists, std::vector < Bullet*>& bullets_lists);
 	void contact(std::vector < Orzbie*>& orzbies_lists, std::vector < Bullet*>& bullets_lists);
+	void drawHP();
+	void putimagePNG(int x, int y, IMAGE* picture);
 
 
  
@@ -23,9 +25,11 @@ class Control
 
     
 private:
+	IMAGE brain;
 	Map * map;
     Player * player;
 	bool playbulletsound1=false;
+	int HP = 3;
 
 };
 

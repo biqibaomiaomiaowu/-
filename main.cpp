@@ -48,6 +48,8 @@ int main() {
 
 		BeginBatchDraw();
 		cleardevice();
+		
+
 		map.init();
 		player.move();
 		getozombies(orzbies_lists);
@@ -60,7 +62,7 @@ int main() {
 		{
 			fierbullet_lists[i]->move();
 		}
-		
+		control.drawHP();
 		EndBatchDraw();
 		control.checkout(orzbies_lists, fierbullet_lists);
 		control.contact(orzbies_lists,fierbullet_lists);
