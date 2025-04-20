@@ -37,6 +37,18 @@ void Control::contact(std::vector < Orzbie*>& orzbies_lists, std::vector < Bulle
                 && bullets_lists[i]->gety() + 17 > orzbies_lists[j]->gety()
                 && bullets_lists[i]->gety() + 17 < orzbies_lists[j]->gety() + 200) 
             {
+                if (playbulletsound1 == false) {
+                    mciSendString("play res/splat1.mp3", 0, 0, 0);
+                    playbulletsound1 = true;
+                    std::cout << "1";
+                }
+                else {
+                    mciSendString("play res/splat2.mp3", 0, 0, 0);
+                    playbulletsound1 = false;
+                    std::cout << "2";
+                }
+                
+                
                 delete bullets_lists[i];
                 bullets_lists.erase(bullets_lists.begin() + i);
                 delete orzbies_lists[j];

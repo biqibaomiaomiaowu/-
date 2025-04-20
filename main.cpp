@@ -9,22 +9,30 @@ int contofozombies = 0;
 int rateofozombies = 100;
 int contbullet = 0;
 int ratebullet = 50;
-void getozombies(vector < Orzbie*> &orzbies_lists) {
+
+void getozombies(vector < Orzbie*> &orzbies_lists) 
+{
 	contofozombies++;
-	if (contofozombies >= rateofozombies) {
+	if (contofozombies >= rateofozombies) 
+	{
 		orzbies_lists.push_back(new Orzbie());
 		contofozombies = 0;
 	}
 }
-void getfierbullet(vector < Bullet*>& fierbullet_lists,Player *player) {
+
+void getfierbullet(vector < Bullet*>& fierbullet_lists,Player *player) 
+{
 	contbullet++;
 	if (contbullet >= ratebullet) {
 		fierbullet_lists.push_back(new Bullet(player));
 		contbullet = 0;
 	}
 }
+
 int main() {
 	initgraph(1280,960,EX_SHOWCONSOLE);
+	mciSendString("play res/Faster.mp3 repeat",NULL, 0, NULL);
+
 	Map map;
 	Player player;
 	Enemy enemy;
@@ -43,11 +51,13 @@ int main() {
 		map.init();
 		player.move();
 		getozombies(orzbies_lists);
-		for (int i = 0; i < orzbies_lists.size(); i++) {
+		for (int i = 0; i < orzbies_lists.size(); i++) 
+		{
             			orzbies_lists[i]->move();
 		}
 		getfierbullet(fierbullet_lists,&player);
-		for (int i = 0; i < fierbullet_lists.size(); i++) {
+		for (int i = 0; i < fierbullet_lists.size(); i++) 
+		{
 			fierbullet_lists[i]->move();
 		}
 		
