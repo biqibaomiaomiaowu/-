@@ -12,7 +12,7 @@ public:
 	void putimagePNG(int x, int y, IMAGE* picture);
 	int getx();
 	int gety();
-	void checkout();
+    	int getATK();
 private:
 	
 	int x=0;
@@ -22,5 +22,6 @@ private:
 	int speed = 5;
 	int gamecont = 0;
 	int playframerate = 2;
+	int ATK = 1;
 };
 

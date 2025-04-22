@@ -96,3 +96,13 @@ int Orzbie::gety()
 {
     return y;
 }
+
+void Orzbie::getattack()
+{
+    HP--;
+}
+
+int Orzbie::getHP()
+{
+    return HP;
+}

@@ -1,14 +1,14 @@
 #pragma once
 #include<easyx.h>
-#include<iostream>
 #include<time.h>
+#include<iostream>
 #include<random>
-class Orzbie
+class Nbzombie
 {
 public:
-	Orzbie();
+	Nbzombie();
 	void move();
-	void draw(); 
+	void draw();
 	void putimagePNG(int x, int y, IMAGE* picture);
 	void zombieposition();
 	int getx();
@@ -17,12 +17,12 @@ public:
 	int getHP();
 private:
 	int x = 1110;
-	int y=0;
-	int speed = 1;
-	IMAGE zombies[10];
+	int y = 0;
+	int speed = 2;
+	IMAGE nbzombies[54];
 	int imagenub = 0;
 	int playframerate = 5;
 	int gamecont = 0;
-	int HP = 2;
+	int HP = 4;
 };
 

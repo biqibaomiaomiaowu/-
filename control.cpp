@@ -2,6 +2,7 @@
 void Control::init()
 {
     loadimage(&brain, "res/brian.png", 0, 0);
+    loadimage(&skill_1, "res/shuriken.png", 0, 0);
     map->init();
     player->init();
 
@@ -13,7 +14,7 @@ Control::Control(Map* map, Player* player)
 
 }
 
-void Control::checkout(std::vector<Orzbie*>& orzbies_lists, std::vector<Bullet*>& bullets_lists)
+void Control::checkoutorzbies(std::vector<Orzbie*>& orzbies_lists, std::vector<Bullet*>& bullets_lists)
 {
     for (int i = 0; i < orzbies_lists.size(); i++) {
         if (orzbies_lists[i]->getx() <0) {
@@ -32,7 +33,7 @@ void Control::checkout(std::vector<Orzbie*>& orzbies_lists, std::vector<Bullet*>
             }
         }
     }
-    for (int i = 0; i < bullets_lists.size(); i++) {
+    for (int i = bullets_lists.size()-1; i >= 0; i--) {
         if (bullets_lists[i]->getx() > 1200) {
             delete bullets_lists[i];
             bullets_lists.erase(bullets_lists.begin() + i);
@@ -40,10 +41,10 @@ void Control::checkout(std::vector<Orzbie*>& orzbies_lists, std::vector<Bullet*>
     }
 }
 
-void Control::contact(std::vector < Orzbie*>& orzbies_lists, std::vector < Bullet*>& bullets_lists)
+void Control::contactorzbies(std::vector < Orzbie*>& orzbies_lists, std::vector < Bullet*>& bullets_lists)
 {
-    for (int i = 0; i < bullets_lists.size(); i++) {
-        for (int j = 0; j < orzbies_lists.size(); j++) {
+    for (int i = bullets_lists.size() - 1; i >= 0; --i) {
+        for (int j = orzbies_lists.size() - 1; j >= 0; --j) {
             if (bullets_lists[i]->getx() + 28 > orzbies_lists[j]->getx()
                 && bullets_lists[i]->getx() + 28 < orzbies_lists[j]->getx() + 170
                 && bullets_lists[i]->gety() + 17 > orzbies_lists[j]->gety()
@@ -60,11 +61,23 @@ void Control::contact(std::vector < Orzbie*>& orzbies_lists, std::vector < Bulle
                     std::cout << "2";
                 }
                 
-                
+                orzbies_lists[j]->getattack();
+                if (orzbies_lists[j]->getHP() == 0) {
+                    delete orzbies_lists[j];
+                    orzbies_lists[j] == NULL;
+                    orzbies_lists.erase(orzbies_lists.begin() + j);
+                    score++;
+                }
                 delete bullets_lists[i];
+                bullets_lists[i] == NULL;
                 bullets_lists.erase(bullets_lists.begin() + i);
-                delete orzbies_lists[j];
-                orzbies_lists.erase(orzbies_lists.begin() + j);
+                
+               
+                
+                break;
+
+                
+                
 
             }
 
@@ -73,6 +86,7 @@ void Control::contact(std::vector < Orzbie*>& orzbies_lists, std::vector < Bulle
         
    }
 }
+
 
 void Control::drawHP()
 {
@@ -124,5 +138,95 @@ void Control::putimagePNG(int x, int y, IMAGE* picture)
                     | (sb * sa / 255 + db * (255 - sa) / 255);              //¦Áp=sa/255 , FP=sb , BP=db
             }
         }
+    }
+}
+
+void Control::shouscore() {
+    settextcolor(RED);
+    settextstyle(50, 0, 0);
+    setbkmode(TRANSPARENT);
+    char score1[50] = { 0 };
+    sprintf_s(score1, "score::%d", score);
+    outtextxy(200, 0, score1);
+
+
+}
+
+int Control::getscore()
+{
+    return score;
+}
+
+void Control::checkoutnbzombies(std::vector<Nbzombie*>& nbzombie_lists, std::vector<Bullet*>& bullets_lists)
+{
+    for (int i = 0; i < nbzombie_lists.size(); i++) {
+        if (nbzombie_lists[i]->getx() < 0) {
+            delete nbzombie_lists[i];
+            nbzombie_lists.erase(nbzombie_lists.begin() + i);
+            HP--;
+            mciSendString("play res/chomp.mp3", NULL, 0, NULL);
+            if (HP == 0) {
+                settextcolor(RED);
+                settextstyle(300, 500, 0);
+                setbkmode(TRANSPARENT);
+                outtextxy(500, 500, "Game Over");
+                mciSendString("stop res/Faster.mp3", NULL, 0, NULL);
+                mciSendString("play res/losemusic.mp3", NULL, 0, NULL);
+                Sleep(7000);
+            }
+        }
+    }
+    for (int i = bullets_lists.size()-1; i >=0; i--) {
+        if (bullets_lists[i]->getx() > 1200) {
+            delete bullets_lists[i];
+            bullets_lists.erase(bullets_lists.begin() + i);
+        }
+    }
+
+}
+
+void Control::contactnbzombies(std::vector<Nbzombie*>& nbzombie_lists, std::vector<Bullet*>& bullets_lists)
+{
+    for (int i = bullets_lists.size() - 1; i >= 0; --i) {
+        for (int j = nbzombie_lists.size() - 1; j >= 0; --j) {
+            if (bullets_lists[i]->getx() + 28 > nbzombie_lists[j]->getx()
+                && bullets_lists[i]->getx() + 28 < nbzombie_lists[j]->getx() + 170
+                && bullets_lists[i]->gety() + 17 > nbzombie_lists[j]->gety()
+                && bullets_lists[i]->gety() + 17 < nbzombie_lists[j]->gety() + 200)
+            {
+                if (playbulletsound1 == false) {
+                    mciSendString("play res/splat1.mp3", 0, 0, 0);
+                    playbulletsound1 = true;
+                    std::cout << "1";
+                }
+                else {
+                    mciSendString("play res/splat2.mp3", 0, 0, 0);
+                    playbulletsound1 = false;
+                    std::cout << "2";
+                }
+
+                nbzombie_lists[j]->getattack();
+                if (nbzombie_lists[j]->getHP() == 0) {
+                    delete nbzombie_lists[j];
+                    nbzombie_lists[j] == NULL;
+                    nbzombie_lists.erase(nbzombie_lists.begin() + j);
+                    score++;
+                }
+                delete bullets_lists[i];
+                bullets_lists[i] == NULL;
+                bullets_lists.erase(bullets_lists.begin() + i);
+
+
+
+                break;
+
+
+
+
+            }
+
+        }
+
+
     }
 }
