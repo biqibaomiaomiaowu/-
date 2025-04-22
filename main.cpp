@@ -97,6 +97,12 @@ int main() {
 			cleardevice();
 			map.init();
 			player.move();
+			for (int i = 0; i < orzbies_lists.size(); i++)
+			{
+				orzbies_lists[i]->move();
+			}
+
+
 			getnbzombie(nbzombie_lists);
 			for (int i = 0; i < nbzombie_lists.size(); i++)
 			{
@@ -110,6 +116,8 @@ int main() {
 			control.drawHP();
 			control.shouscore();
 			EndBatchDraw();
+			control.checkoutorzbies(orzbies_lists, fierbullet_lists);
+			control.contactorzbies(orzbies_lists, fierbullet_lists);
 			control.checkoutnbzombies(nbzombie_lists, fierbullet_lists);
 			control.contactnbzombies(nbzombie_lists, fierbullet_lists);
 		
