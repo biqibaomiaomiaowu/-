@@ -2,7 +2,7 @@
 void Control::init()
 {
     loadimage(&brain, "res/brian.png", 0, 0);
-    loadimage(&skill_1, "res/shuriken.png", 0, 0);
+    loadimage(&skill_tracebullet, "res/tracebullet.png", 50,50);
     map->init();
     player->init();
 
@@ -229,4 +229,9 @@ void Control::contactnbzombies(std::vector<Nbzombie*>& nbzombie_lists, std::vect
 
 
     }
+}
+
+void Control::showskill()
+{
+    putimagePNG(400, 300, &skill_tracebullet);
 }

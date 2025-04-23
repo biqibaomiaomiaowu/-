@@ -54,6 +54,7 @@ int main() {
 	Control control(&map, &player);
 	control.init();
 	Bullet test(&player);
+	bool skillchoose = false;
 	
 	while (1)
 	{
@@ -69,6 +70,8 @@ int main() {
 		else if (gametime > 120000 && gametime <= 180000) {
 			stage = 3;
 		}
+
+
 		if (stage == 1) //½©Ê¬µÚÒ»½×¶Î
 		{
 			BeginBatchDraw();
@@ -83,10 +86,44 @@ int main() {
 			getfierbullet(fierbullet_lists, &player);
 			for (int i = 0; i < fierbullet_lists.size(); i++)
 			{
-				fierbullet_lists[i]->move();
+				if (!player.getskill_tracebullet()) {
+					
+					fierbullet_lists[i]->move();
+
+				}
+				else {
+					if (orzbies_lists.size() == 0) {
+						fierbullet_lists[i]->move();
+					}
+					else {
+						fierbullet_lists[i]->skill_trace_orzbie_bullet(orzbies_lists);
+
+					}
+				}
 			}
 			control.drawHP();
 			control.shouscore();
+			if (control.getscore() >= 3&&!skillchoose) 
+			{ 
+				control.showskill();
+				EndBatchDraw();
+				ExMessage msg;
+				while (1) 
+				{
+					while (peekmessage(&msg, EX_MOUSE)) {
+						if (msg.message == WM_LBUTTONDOWN) {
+							if (msg.x >= 400 && msg.x <= 500 && msg.y >= 300 && msg.y <= 400) {
+								player.changeskill_tracebullet();
+								skillchoose = true;
+							}
+
+						}
+					}
+					if (skillchoose) {
+                        break;
+					}
+				}
+			}
 			EndBatchDraw();
 			control.checkoutorzbies(orzbies_lists, fierbullet_lists);
 			control.contactorzbies(orzbies_lists, fierbullet_lists);
@@ -111,7 +148,22 @@ int main() {
 			getfierbullet(fierbullet_lists, &player);
 			for (int i = 0; i < fierbullet_lists.size(); i++)
 			{
-				fierbullet_lists[i]->move();
+				if (!player.getskill_tracebullet())
+				{
+
+					fierbullet_lists[i]->move();
+
+				}
+				else 
+				{
+					if (nbzombie_lists.size() == 0) {
+						fierbullet_lists[i]->move();
+					}
+					else {
+						fierbullet_lists[i]->skill_trace_nbzombie_bullet(nbzombie_lists);
+
+					}
+				}
 			}
 			control.drawHP();
 			control.shouscore();

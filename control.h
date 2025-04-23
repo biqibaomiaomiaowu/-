@@ -22,6 +22,7 @@ class Control
 	int getscore();
 	void checkoutnbzombies(std::vector < Nbzombie*>& nbzombie_lists, std::vector < Bullet*>& bullets_lists);
 	void contactnbzombies(std::vector < Nbzombie*>& nbzombie_lists, std::vector < Bullet*>& bullets_lists);
+	void showskill();
  
         
  
@@ -29,7 +30,7 @@ class Control
 
     
 private:
-	IMAGE skill_1;
+	IMAGE skill_tracebullet;
 	IMAGE brain;
 	Map * map;
     Player * player;

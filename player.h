@@ -10,6 +10,8 @@ public:
 	void putimagePNG(int x, int y, IMAGE* picture);
 	int getx();
 	int gety();
+	bool getskill_tracebullet();
+	void changeskill_tracebullet();
 private:
 	IMAGE player[31];
 	int x=450;
@@ -22,5 +24,6 @@ private:
 	int speed = 5;
 	int gamecont = 0;
 	int playframerate = 2;//动画播放帧率=游戏帧率(gameframerate)/playframerate
+	bool skill_tracebullet=false;
 };
 

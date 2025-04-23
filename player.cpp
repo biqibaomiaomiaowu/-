@@ -119,3 +119,13 @@ int Player::gety()
 {
     return y;
 }
+
+bool Player::getskill_tracebullet()
+{
+    return skill_tracebullet;
+}
+
+void Player::changeskill_tracebullet()
+{
+    skill_tracebullet = true;
+}

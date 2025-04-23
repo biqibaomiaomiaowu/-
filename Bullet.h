@@ -2,17 +2,23 @@
 #include<easyx.h>
 #include<iostream>
 #include"player.h"
+#include<vector>
+#include"Nbzombie.h"
+#include"Orzbie.h"
 
 class Bullet
 {
 public:
 	Bullet(Player * player);
 	void draw();
-	void move();IMAGE bullet[2];
+	void move();
+	IMAGE bullet[2];
 	void putimagePNG(int x, int y, IMAGE* picture);
 	int getx();
 	int gety();
-    	int getATK();
+    int getATK();
+	void skill_trace_orzbie_bullet(std::vector < Orzbie*>& orzbies_lists);
+	void skill_trace_nbzombie_bullet(std::vector < Nbzombie*>nbzombie_lists);
 private:
 	
 	int x=0;

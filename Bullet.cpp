@@ -63,6 +63,51 @@ int Bullet::getATK()
     return ATK;
 }
 
+void Bullet::skill_trace_orzbie_bullet(std::vector < Orzbie*>& orzbies_lists)
+{
+    draw();
+    gamecont++;
+    if (gamecont == playframerate) {
+        imagenub++;
+        gamecont = 0;
+    }
+    imagenub %= 2;
+    int distance_x= orzbies_lists[0]->getx()+10-x;
+
+    int distance_y = orzbies_lists[0]->gety()+100 - y;
+
+    double distance = sqrt(distance_x * distance_x + distance_y * distance_y);
+    double cos = distance_x / distance;
+    double sin = distance_y / distance;
+    x += cos * speed;
+    y += sin * speed;
+
+}
+
+void Bullet::skill_trace_nbzombie_bullet(std::vector<Nbzombie*> nbzombie_lists)
+{
+    draw();
+    gamecont++;
+    if (gamecont == playframerate) {
+        imagenub++;
+        gamecont = 0;
+    }
+    imagenub %= 2;
+    int distance_x = nbzombie_lists[0]->getx() + 10 - x;
+
+    int distance_y = nbzombie_lists[0]->gety() + 100 - y;
+
+    double distance = sqrt(distance_x * distance_x + distance_y * distance_y);
+    double cos = distance_x / distance;
+    double sin = distance_y / distance;
+    x += cos * speed;
+    y += sin * speed;
+
+}
+
+
+
+
 void Bullet::draw()
 {
     putimagePNG(x, y, &bullet[imagenub]);
