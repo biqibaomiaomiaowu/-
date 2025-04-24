@@ -3,11 +3,16 @@
 Bullet::Bullet(Player * player)
 {
 	this->player = player;
+    if (player->getskill_bigbullet()) {
+        skill_bigbullet = true;
+        ATK *=2;
+    }
     char name[50] = { 0 };
         for (int i = 0; i < 2; i++) {
             sprintf_s(name, "res/fierbullet(%d).png", i+1);
     
            loadimage(&bullet[i], name);
+           loadimage(&bigbullet[i], name, 84, 46);
         }
         x = player->getx() + 194;
         y = player->gety() + 128;
@@ -110,7 +115,14 @@ void Bullet::skill_trace_nbzombie_bullet(std::vector<Nbzombie*> nbzombie_lists)
 
 void Bullet::draw()
 {
-    putimagePNG(x, y, &bullet[imagenub]);
+    if (!skill_bigbullet) {
+        putimagePNG(x, y, &bullet[imagenub]);
+
+    }
+    else {
+        putimagePNG(x, y, &bigbullet[imagenub]);
+    }
+    
 }
 
 void Bullet::move()

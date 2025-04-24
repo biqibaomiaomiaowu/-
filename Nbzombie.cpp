@@ -1,8 +1,8 @@
 #include "Nbzombie.h"
 
-Nbzombie::Nbzombie()
+Nbzombie::Nbzombie(int bulletATK)
 {
-    
+    this->bulletATK = bulletATK;
         char name[50] = { 0 };
         int nub = 1;
 
@@ -97,7 +97,7 @@ int Nbzombie::gety()
 
 void Nbzombie::getattack()
 {
-    HP--;
+    HP-=bulletATK;
 }
 
 int Nbzombie::getHP()

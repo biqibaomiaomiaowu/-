@@ -12,7 +12,7 @@ public:
 	Bullet(Player * player);
 	void draw();
 	void move();
-	IMAGE bullet[2];
+	
 	void putimagePNG(int x, int y, IMAGE* picture);
 	int getx();
 	int gety();
@@ -20,7 +20,9 @@ public:
 	void skill_trace_orzbie_bullet(std::vector < Orzbie*>& orzbies_lists);
 	void skill_trace_nbzombie_bullet(std::vector < Nbzombie*>nbzombie_lists);
 private:
-	
+	IMAGE bullet[2];
+	bool skill_bigbullet=false;
+	IMAGE bigbullet[2];
 	int x=0;
 	int y=0;
 	Player * player;

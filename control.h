@@ -31,6 +31,7 @@ class Control
     
 private:
 	IMAGE skill_tracebullet;
+	IMAGE skill_bigbullet;
 	IMAGE brain;
 	Map * map;
     Player * player;

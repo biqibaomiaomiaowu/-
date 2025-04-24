@@ -11,7 +11,9 @@ public:
 	int getx();
 	int gety();
 	bool getskill_tracebullet();
+	bool getskill_bigbullet();
 	void changeskill_tracebullet();
+	void changeskill_bigbullet();
 private:
 	IMAGE player[31];
 	int x=450;
@@ -25,5 +27,6 @@ private:
 	int gamecont = 0;
 	int playframerate = 2;//动画播放帧率=游戏帧率(gameframerate)/playframerate
 	bool skill_tracebullet=false;
+	bool skill_bigbullet = false;
 };
 

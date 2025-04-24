@@ -2,8 +2,9 @@
 
 
 
-Orzbie::Orzbie()
+Orzbie::Orzbie(int bulletATK)
 {
+    this->bulletATK = bulletATK;
     char name[50] = { 0 };
     int nub = 1;
 
@@ -99,7 +100,7 @@ int Orzbie::gety()
 
 void Orzbie::getattack()
 {
-    HP--;
+    HP-=bulletATK;
 }
 
 int Orzbie::getHP()

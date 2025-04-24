@@ -14,12 +14,12 @@ int rateofnbzombies = 100;
 clock_t gametime =0;
 int stage = 1;
 
-void getozombies(vector < Orzbie*> &orzbies_lists) 
+void getozombies(vector < Orzbie*> &orzbies_lists, int bulletATK)
 {
 	contofozombies++;
 	if (contofozombies >= rateofozombies) 
 	{
-		orzbies_lists.push_back(new Orzbie());
+		orzbies_lists.push_back(new Orzbie(bulletATK));
 		contofozombies = 0;
 	}
 }
@@ -32,11 +32,11 @@ void getfierbullet(vector < Bullet*>& fierbullet_lists,Player *player)
 		contbullet = 0;
 	}
 }
-void getnbzombie(vector < Nbzombie*>&nbzombie_lists)
+void getnbzombie(vector < Nbzombie*>&nbzombie_lists,int bulletATK)
 {
     	contofnbzombies++;
         	if (contofnbzombies >= rateofnbzombies) {
-            		nbzombie_lists.push_back(new Nbzombie);
+            		nbzombie_lists.push_back(new Nbzombie(bulletATK));
             		contofnbzombies = 0;
         	}
 }
@@ -53,11 +53,13 @@ int main() {
 	vector < Nbzombie*>nbzombie_lists;
 	Control control(&map, &player);
 	control.init();
-	Bullet test(&player);
-	bool skillchoose = false;
+	
+	bool skillchooseone = false;
 	
 	while (1)
 	{
+		Bullet test(&player);
+		int bulletATK = test.getATK();
 		gametime = clock();
 		clock_t starttime = clock();//记录开始时间
 		if (gametime <= 60000) {
@@ -78,7 +80,7 @@ int main() {
 			cleardevice();
 			map.init();
 			player.move();
-			getozombies(orzbies_lists);
+			getozombies(orzbies_lists,bulletATK);
 			for (int i = 0; i < orzbies_lists.size(); i++)
 			{
 				orzbies_lists[i]->move();
@@ -103,7 +105,7 @@ int main() {
 			}
 			control.drawHP();
 			control.shouscore();
-			if (control.getscore() >= 3&&!skillchoose) 
+			if (control.getscore() >= 3&&!skillchooseone) 
 			{ 
 				control.showskill();
 				EndBatchDraw();
@@ -112,14 +114,21 @@ int main() {
 				{
 					while (peekmessage(&msg, EX_MOUSE)) {
 						if (msg.message == WM_LBUTTONDOWN) {
-							if (msg.x >= 400 && msg.x <= 500 && msg.y >= 300 && msg.y <= 400) {
+							if (msg.x >= 400 && msg.x <= 450&& msg.y >= 300 && msg.y <= 350)
+							{
 								player.changeskill_tracebullet();
-								skillchoose = true;
+								skillchooseone = true;
+							}
+							if (msg.x >= 470 && msg.x <= 520 && msg.y >= 300 && msg.y <= 3500)
+							{
+								player.changeskill_bigbullet();
+								
+								skillchooseone = true;
 							}
 
 						}
 					}
-					if (skillchoose) {
+					if (skillchooseone) {
                         break;
 					}
 				}
@@ -140,7 +149,7 @@ int main() {
 			}
 
 
-			getnbzombie(nbzombie_lists);
+			getnbzombie(nbzombie_lists,bulletATK);
 			for (int i = 0; i < nbzombie_lists.size(); i++)
 			{
 				nbzombie_lists[i]->move();

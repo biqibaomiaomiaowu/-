@@ -3,6 +3,8 @@ void Control::init()
 {
     loadimage(&brain, "res/brian.png", 0, 0);
     loadimage(&skill_tracebullet, "res/tracebullet.png", 50,50);
+    loadimage(&skill_bigbullet,"res/fierbullet(1).png",50,50);
+
     map->init();
     player->init();
 
@@ -62,14 +64,14 @@ void Control::contactorzbies(std::vector < Orzbie*>& orzbies_lists, std::vector 
                 }
                 
                 orzbies_lists[j]->getattack();
-                if (orzbies_lists[j]->getHP() == 0) {
+                if (orzbies_lists[j]->getHP() <= 0) {
                     delete orzbies_lists[j];
-                    orzbies_lists[j] == NULL;
+                    orzbies_lists[j] = NULL;
                     orzbies_lists.erase(orzbies_lists.begin() + j);
                     score++;
                 }
                 delete bullets_lists[i];
-                bullets_lists[i] == NULL;
+                bullets_lists[i] = NULL;
                 bullets_lists.erase(bullets_lists.begin() + i);
                 
                
@@ -208,12 +210,12 @@ void Control::contactnbzombies(std::vector<Nbzombie*>& nbzombie_lists, std::vect
                 nbzombie_lists[j]->getattack();
                 if (nbzombie_lists[j]->getHP() == 0) {
                     delete nbzombie_lists[j];
-                    nbzombie_lists[j] == NULL;
+                    nbzombie_lists[j] = NULL;
                     nbzombie_lists.erase(nbzombie_lists.begin() + j);
                     score++;
                 }
                 delete bullets_lists[i];
-                bullets_lists[i] == NULL;
+                bullets_lists[i] = NULL;
                 bullets_lists.erase(bullets_lists.begin() + i);
 
 
@@ -234,4 +236,5 @@ void Control::contactnbzombies(std::vector<Nbzombie*>& nbzombie_lists, std::vect
 void Control::showskill()
 {
     putimagePNG(400, 300, &skill_tracebullet);
+    putimagePNG(470, 300, &skill_bigbullet);
 }

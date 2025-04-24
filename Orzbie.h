@@ -6,7 +6,7 @@
 class Orzbie
 {
 public:
-	Orzbie();
+	Orzbie(int bulletATK);
 	void move();
 	void draw(); 
 	void putimagePNG(int x, int y, IMAGE* picture);
@@ -16,6 +16,7 @@ public:
 	void getattack();
 	int getHP();
 private:
+	int bulletATK = 1;
 	int x = 1110;
 	int y=0;
 	int speed = 1;
