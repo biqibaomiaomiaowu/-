@@ -107,3 +107,8 @@ int Orzbie::getHP()
 {
     return HP;
 }
+
+void Orzbie::HPdown()
+{
+    HP--;
+}

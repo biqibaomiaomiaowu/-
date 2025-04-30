@@ -238,3 +238,62 @@ void Control::showskill()
     putimagePNG(400, 300, &skill_tracebullet);
     putimagePNG(470, 300, &skill_bigbullet);
 }
+
+void Control::drawcirclebullet()
+{
+    double Ve = 0.0045;
+    double Vn= 0.0045;
+    int time = clock();
+    int r = 200+50*cos(Vn*time);
+    setfillcolor(RED);
+    int x = player->getx() + 133;
+    int y = player->gety() + 120;
+    double distance = 2 * 3.1415926 / 3;
+    for (int i = 0; i < 3; i++) 
+    {
+        
+        fillcircle(x + r *cos(distance*i+Ve*time), y + r * sin(distance * i + Ve * time), 10);
+        circlebullet[i][0] = x + r * cos(distance * i + Ve * time);
+        circlebullet[i][1] = y + r * sin(distance * i + Ve * time);
+    }
+}
+
+void Control::contactcirclebullet(std::vector<Nbzombie*>& nbzombie_lists, std::vector<Orzbie*>& orzbies_lists)
+{
+    for (int i = 0; i < 3; i++) {
+        for (int j = nbzombie_lists.size() - 1; j >= 0; --j) 
+        {
+            if (circlebullet[i][0] > nbzombie_lists[j]->getx()
+                && circlebullet[i][0] < nbzombie_lists[j]->getx() + 170
+                && circlebullet[i][1] > nbzombie_lists[j]->gety()
+                && circlebullet[i][1] < nbzombie_lists[j]->gety() + 200) 
+            {
+                nbzombie_lists[j]->HPdown();
+            }
+            if (nbzombie_lists[j]->getHP() == 0) {
+                delete nbzombie_lists[j];
+                nbzombie_lists[j] = NULL;
+                nbzombie_lists.erase(nbzombie_lists.begin() + j);
+                score++;
+            }
+        
+        }
+        for (int j = orzbies_lists.size() - 1; j >= 0; --j)
+        {
+            if (circlebullet[i][0] > orzbies_lists[j]->getx()
+                && circlebullet[i][0] < orzbies_lists[j]->getx() + 170
+                && circlebullet[i][1] > orzbies_lists[j]->gety()
+                && circlebullet[i][1] < orzbies_lists[j]->gety() + 200)
+            {
+                orzbies_lists[j]->HPdown();
+            }
+            if (orzbies_lists[j]->getHP() == 0) {
+                delete orzbies_lists[j];
+                orzbies_lists[j] = NULL;
+                orzbies_lists.erase(orzbies_lists.begin() + j);
+                score++;
+            }
+
+        }
+    }
+}

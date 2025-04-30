@@ -15,6 +15,7 @@ public:
 	int gety();
 	void getattack();
 	int getHP();
+	void HPdown();
 private:
 	int bulletATK = 1;
 	int x = 1110;

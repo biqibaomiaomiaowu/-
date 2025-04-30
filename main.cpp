@@ -105,6 +105,7 @@ int main() {
 			}
 			control.drawHP();
 			control.shouscore();
+			control.drawcirclebullet();
 			if (control.getscore() >= 3&&!skillchooseone) 
 			{ 
 				control.showskill();
@@ -136,6 +137,7 @@ int main() {
 			EndBatchDraw();
 			control.checkoutorzbies(orzbies_lists, fierbullet_lists);
 			control.contactorzbies(orzbies_lists, fierbullet_lists);
+			control.contactcirclebullet(nbzombie_lists, orzbies_lists);
 		}
 		if (stage == 2)//½©Ê¬µÚ¶þ½×¶Î
 		{

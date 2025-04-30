@@ -10,6 +10,7 @@
 #include<conio.h>
 #include"Nbzombie.h"
 #pragma comment(lib, "winmm.lib")
+#include<math.h>
 class Control
 {public:
 	void init();
@@ -23,6 +24,8 @@ class Control
 	void checkoutnbzombies(std::vector < Nbzombie*>& nbzombie_lists, std::vector < Bullet*>& bullets_lists);
 	void contactnbzombies(std::vector < Nbzombie*>& nbzombie_lists, std::vector < Bullet*>& bullets_lists);
 	void showskill();
+	void drawcirclebullet();
+	void contactcirclebullet(std::vector < Nbzombie*>& nbzombie_lists, std::vector < Orzbie*>& orzbies_lists);
  
         
  
@@ -38,5 +41,6 @@ private:
 	bool playbulletsound1=false;
 	int HP = 3;
 	int score = 0;
+	int circlebullet[3][2] = { 0 };
 };
 

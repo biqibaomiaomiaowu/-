@@ -104,3 +104,8 @@ int Nbzombie::getHP()
 {
     return HP;
 }
+
+void Nbzombie::HPdown()
+{
+    HP--;
+}

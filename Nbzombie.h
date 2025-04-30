@@ -15,6 +15,7 @@ public:
 	int gety();
 	void getattack();
 	int getHP();
+	void HPdown();
 private:
 	int x = 1110;
 	int y = 0;

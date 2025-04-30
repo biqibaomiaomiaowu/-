@@ -139,3 +139,8 @@ void Player::changeskill_bigbullet()
 {
     skill_bigbullet = true;
 }
+
+void Player::changeskill_circlebullet()
+{
+    skill_circlebullet = true;
+}
