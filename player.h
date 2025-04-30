@@ -12,6 +12,7 @@ public:
 	int gety();
 	bool getskill_tracebullet();
 	bool getskill_bigbullet();
+	bool getskill_circlebullet();
 	void changeskill_tracebullet();
 	void changeskill_bigbullet();
 	void changeskill_circlebullet();

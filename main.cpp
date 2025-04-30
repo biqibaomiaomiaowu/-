@@ -105,7 +105,12 @@ int main() {
 			}
 			control.drawHP();
 			control.shouscore();
-			control.drawcirclebullet();
+			if (player.getskill_circlebullet()) 
+			{
+				control.drawcirclebullet();
+
+			}
+			
 			if (control.getscore() >= 3&&!skillchooseone) 
 			{ 
 				control.showskill();
@@ -120,10 +125,15 @@ int main() {
 								player.changeskill_tracebullet();
 								skillchooseone = true;
 							}
-							if (msg.x >= 470 && msg.x <= 520 && msg.y >= 300 && msg.y <= 3500)
+							if (msg.x >= 470 && msg.x <= 520 && msg.y >= 300 && msg.y <= 350)
 							{
 								player.changeskill_bigbullet();
 								
+								skillchooseone = true;
+							}
+							if (msg.x >= 540 && msg.x <= 590 && msg.y >= 300 && msg.y <= 350) 
+							{
+								player.changeskill_circlebullet();
 								skillchooseone = true;
 							}
 

@@ -4,6 +4,7 @@ void Control::init()
     loadimage(&brain, "res/brian.png", 0, 0);
     loadimage(&skill_tracebullet, "res/tracebullet.png", 50,50);
     loadimage(&skill_bigbullet,"res/fierbullet(1).png",50,50);
+    loadimage(&skill_circlebullet, "res/红色光环_爱给网_aigei_com.png", 50, 50);
 
     map->init();
     player->init();
@@ -237,6 +238,7 @@ void Control::showskill()
 {
     putimagePNG(400, 300, &skill_tracebullet);
     putimagePNG(470, 300, &skill_bigbullet);
+    putimagePNG(540, 300, &skill_circlebullet);
 }
 
 void Control::drawcirclebullet()
@@ -260,15 +262,19 @@ void Control::drawcirclebullet()
 
 void Control::contactcirclebullet(std::vector<Nbzombie*>& nbzombie_lists, std::vector<Orzbie*>& orzbies_lists)
 {
+    
+    circlebulletcoolcont++;
+    circlebulletcoolcont %= 15;
     for (int i = 0; i < 3; i++) {
         for (int j = nbzombie_lists.size() - 1; j >= 0; --j) 
         {
             if (circlebullet[i][0] > nbzombie_lists[j]->getx()
                 && circlebullet[i][0] < nbzombie_lists[j]->getx() + 170
                 && circlebullet[i][1] > nbzombie_lists[j]->gety()
-                && circlebullet[i][1] < nbzombie_lists[j]->gety() + 200) 
+                && circlebullet[i][1] < nbzombie_lists[j]->gety() + 200&&circlebulletcoolcont==0) 
             {
                 nbzombie_lists[j]->HPdown();
+                mciSendString("play res/厨刀切割声-日常厨房-食材处理音效_爱给网_aigei_com.mp3", NULL, 0, NULL);
             }
             if (nbzombie_lists[j]->getHP() == 0) {
                 delete nbzombie_lists[j];
@@ -283,9 +289,10 @@ void Control::contactcirclebullet(std::vector<Nbzombie*>& nbzombie_lists, std::v
             if (circlebullet[i][0] > orzbies_lists[j]->getx()
                 && circlebullet[i][0] < orzbies_lists[j]->getx() + 170
                 && circlebullet[i][1] > orzbies_lists[j]->gety()
-                && circlebullet[i][1] < orzbies_lists[j]->gety() + 200)
+                && circlebullet[i][1] < orzbies_lists[j]->gety() + 200 && circlebulletcoolcont == 0)
             {
                 orzbies_lists[j]->HPdown();
+                mciSendString("play res/厨刀切割声-日常厨房-食材处理音效_爱给网_aigei_com.mp3", NULL, 0, NULL);
             }
             if (orzbies_lists[j]->getHP() == 0) {
                 delete orzbies_lists[j];

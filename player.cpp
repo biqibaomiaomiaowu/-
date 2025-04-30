@@ -130,6 +130,11 @@ bool Player::getskill_bigbullet()
     return skill_bigbullet;
 }
 
+bool Player::getskill_circlebullet()
+{
+    return skill_circlebullet;
+}
+
 void Player::changeskill_tracebullet()
 {
     skill_tracebullet = true;

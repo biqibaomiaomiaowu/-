@@ -35,6 +35,7 @@ class Control
 private:
 	IMAGE skill_tracebullet;
 	IMAGE skill_bigbullet;
+	IMAGE skill_circlebullet;
 	IMAGE brain;
 	Map * map;
     Player * player;
@@ -42,5 +43,7 @@ private:
 	int HP = 3;
 	int score = 0;
 	int circlebullet[3][2] = { 0 };
+	int circlebulletcoolcont = 0;
+	
 };
 
