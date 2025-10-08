@@ -24,7 +24,7 @@ void calculate(stack<double>& num, char ope)
 		num.pop();
 		double temp2 = num.top();
 		num.pop();
-		num.push(temp1- temp2);
+		num.push(temp2- temp1);
 	}
 	if (ope == '*') {
 		double temp1 = num.top();
