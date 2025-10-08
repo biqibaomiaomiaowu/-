@@ -5,6 +5,7 @@
 //3.完成了加减乘除次方括号的框架
 //4.完成了弹栈计算
 //5.完成了所有功能，但是数字暂时不支持小数，不支持错误的表达式
+//6.目前支持小数
 #include<iostream>
 #include<string>
 #include<stack>
@@ -58,19 +59,29 @@ double trasform_and_calculate(string s)//采用一边转化一边计算的方式
 		if (s[i] >= '0' && s[i] <= '9')
 		{
 			stack<double>temp_num;
+			int position_point = 0;
 			temp_num.push(s[i] - '0');
-			while (s[i + 1] >= '0' && s[i + 1] <= '9') 
+			while (s[i + 1] >= '0' && s[i + 1] <= '9' || s[i + 1] == '.')
 			{
-				temp_num.push(s[i + 1] - '0');
-				i++;
+				if (s[i + 1] >= '0' && s[i + 1] <= '9') {
+					temp_num.push(s[i + 1] - '0');
+					i++;
+				}
+				else {
+					position_point = temp_num.size();
+					i++;
+				}
 			} 
 			double sum = 0;
 			int digit = 1;
+			if(position_point!=0)
+			position_point = temp_num.size() - position_point;
 			while (!temp_num.empty()) {
 				sum += temp_num.top()*digit;
 				temp_num.pop();
 				digit *= 10;
 			}
+			sum = sum * pow(0.1, position_point);
 			num.push(sum);
 		}
 		if (s[i] == '+') {
